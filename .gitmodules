@@ -1,6 +1,12 @@
 [submodule "frontend"]
 	path = frontend
 	url = git@github.com:Rujuu-prog/react-mysite.git
+	branch = main
 [submodule "backend"]
 	path = backend
 	url = git@github.com:Rujuu-prog/rest-mysite.git
+	branch = main
+[submodule "docker"]
+	path = docker
+	url = git@github.com:Rujuu-prog/mysite-docker.git
+	branch = main
