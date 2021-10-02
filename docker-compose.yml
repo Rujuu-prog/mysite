@@ -1,6 +1,20 @@
 version: '3'
 
 services:
+    db:
+        env_file: ./.env
+        container_name: mysite-db
+        image: postgres:13.3
+        restart: on-failure
+        environment:
+          POSTGRES_DB: ${DB_NAME}
+          POSTGRES_USER: ${DB_USER}
+          POSTGRES_PASSWORD: ${DB_PS}
+          POSTGRES_ALLOW_EMPTY_PASSWORD: "no"
+        volumes:
+          - postgresql:/var/lib/postgresql/data
+        ports:
+          - 5432:5432
     nginx: 
         restart: unless-stopped
         build:
@@ -29,5 +43,6 @@ services:
             - 8000        
 
 volumes:
+    postgresql: {}
     static_volume: {}
     media_volume: {}
