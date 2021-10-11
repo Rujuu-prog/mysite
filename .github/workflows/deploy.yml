@@ -1,0 +1,29 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Generate ssh key
+        run: echo "$SECRET_KEY" > secret_key && chmod 600 secret_key
+        env:
+          SECRET_KEY: ${{ secrets.SSH_KEY }}
+      - name: deploy to VPS
+        run: |
+          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${USER}@${HOST} -i ./secret_key "cd ~/mysite \
+          && docker-compose down \
+          && docker volume rm mysite_static_volume \
+          && git pull origin main \
+          && git submodule update --remote \
+          && docker-compose up -d --build"
+        env:
+          USER: ${{ secrets.USER }}
+          HOST: ${{ secrets.HOST }}
