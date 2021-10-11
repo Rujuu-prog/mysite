@@ -5,7 +5,7 @@
 [submodule "backend"]
 	path = backend
 	url = git@github.com:Rujuu-prog/rest-mysite.git
-	branch = docker
+	branch = docker2
 [submodule "docker"]
 	path = docker
 	url = git@github.com:Rujuu-prog/mysite-docker.git
